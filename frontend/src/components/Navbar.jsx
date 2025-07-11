@@ -8,10 +8,10 @@ const Navbar = () => {
       <div className="mx-auto max-w-6xl p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-secondary font-mono tracking-tighter">
-            GNote
+            Our<span className="text-primary">Notes</span>
           </h1>
           <div className="flex items-center gap-4">
-            <Link to={"/create"} className="btn btn-secondary rounded-3xl">
+            <Link to={"/create"} className="btn btn-primary rounded-3xl">
               <PlusIcon className="size-5" />
               <span>New Note</span>
             </Link>
