@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
 
 import connectDb from "./config/db.js";
@@ -12,6 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 8001;
 
 // Middleware for Req.body
+app.use(cors());
 app.use(express.json());
 // Raquest Limiting
 app.use(rateLimiter);

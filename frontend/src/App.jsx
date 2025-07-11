@@ -8,15 +8,14 @@ import toast from "react-hot-toast";
 
 const App = () => {
   return (
-    <div>
-      <button onClick={() => toast.error("congrats")}>Click Me</button>
+    <div className="relative h-full">
+      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#bc92f9_100%)]" />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/note/:id" element={<NoteDetailPage />} />
       </Routes>
     </div>
-    // https://www.youtube.com/watch?v=F9gB5b4jgOI&t=4946s
   );
 };
 
