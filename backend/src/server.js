@@ -1,28 +1,41 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
 
-import connectDb from "./config/db.js";
 import notesRoutes from "./routes/notesRoutes.js";
+import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
-// Config File
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve();
 
-// Middleware for Req.body
-app.use(cors());
+// middleware
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+    })
+  );
+}
 app.use(express.json());
-// Raquest Limiting
 app.use(rateLimiter);
 
 app.use("/api/notes", notesRoutes);
 
-// Database Connection
-connectDb().then(() => {
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("/:path*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
+
+connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log("Server started on PORT: ", PORT);
+    console.log("Server started on PORT:", PORT);
   });
 });
